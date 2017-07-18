@@ -17,7 +17,6 @@ int main(int argc, char** argv)
     char    buf[MAXLINE];  
     struct sockaddr_in    servaddr;  
   
-  
     if( argc != 2){  
     printf("usage: ./client <ipaddress>\n");  
     exit(0);  
@@ -41,17 +40,20 @@ int main(int argc, char** argv)
     exit(0);  
     }  
   
-    printf("send msg to server: \n");  
+    printf("Send msg to server: \n");  
     fgets(sendline, 4096, stdin);  
+
     if( send(sockfd, sendline, strlen(sendline), 0) < 0)  
     {  
     printf("send msg error: %s(errno: %d)\n", strerror(errno), errno);  
     exit(0);  
     }  
+	
     if((rec_len = recv(sockfd, buf, MAXLINE,0)) == -1) {  
        perror("recv error");  
        exit(1);  
     }  
+	
     buf[rec_len]  = '\0';  
     printf("Received : %s ",buf);  
     close(sockfd);  
